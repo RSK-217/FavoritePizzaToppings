@@ -26,7 +26,7 @@ List<Pizza> pizzas = JsonConvert.DeserializeObject<List<Pizza>>(result);
 
 pizzas.ForEach(pizza =>
 {
-    string toppingsAsString = String.Join("", pizza.Toppings.OrderByDescending(x => x));
+    string toppingsAsString = String.Join(" & ", pizza.Toppings.OrderByDescending(x => x));
 
 if (!toppingsCounter.ContainsKey(toppingsAsString))
     {
@@ -38,13 +38,35 @@ else
     };
 });
 
-var mostPopularPizzaToppings = toppingsCounter.OrderByDescending(toppingCombo => toppingCombo.Value).Take(1).FirstOrDefault();
+//var mostPopularPizzaToppings = toppingsCounter.OrderByDescending(toppingCombo => toppingCombo.Value).Take(1).FirstOrDefault();
 //var maxValue = toppingsCounter.Max();
-Console.WriteLine($" The most popular pizza is {mostPopularPizzaToppings.Key}, and it was ordered {mostPopularPizzaToppings.Value}");
-//Console.WriteLine(maxValue);
+
+
+
+////Console.WriteLine($" The most popular pizza is {mostPopularPizzaToppings.Key}, and it was ordered {mostPopularPizzaToppings.Value}");
+
+
+
+int count = 0; 
+foreach (var i in toppingsCounter.OrderByDescending(x => x.Value))
+{
+    if (count < 20)
+    {
+        Console.WriteLine($"{i.Key} was ordered {i.Value} times.");
+        count++;
+    }
+    else
+    {
+        break;
+    }
+}
 
 
 
 
 
-Console.ReadLine();
+
+
+
+
+    Console.ReadLine();
